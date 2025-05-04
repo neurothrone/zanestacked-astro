@@ -6,8 +6,8 @@ type Props = {
 const { links }: Props = Astro.props;
 ---
 
-<nav class="bg-dark-800 border-b border-primary-700 py-4 mb-6">
-    <div class="container">
+<nav class="bg-dark-800 border-b border-primary-700 py-4 mb-0">
+    <div class="container mx-auto px-4">
         <ul class="flex gap-6">
           {links.map((link) => (
                   <li>
