@@ -1,0 +1,22 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const projects = await getCollection("projects");
+const sortByDate = (a: CollectionEntry<"projects">, b: CollectionEntry<"projects">) => {
+  return b.data.createdDate.getTime() - a.data.createdDate.getTime();
+};
+---
+
+<BaseLayout>
+    <h1>Projects</h1>
+    <ul class="project-list">
+      {projects.sort(sortByDate).map((project: CollectionEntry<"projects">) => {
+          <li>
+              <div class="title">{project.data.title}</div>
+              <div class="created-date">{project.data.createdDate.toDateString()}</div>
+              <a href={`/projects/${project.id.replace(".md", "")}`}>Read more</a>
+          </li>
+      })}
+    </ul>
+</BaseLayout>
