@@ -1,6 +1,7 @@
 ---
 import { getCollection, render, type CollectionEntry } from "astro:content";
-import type { GetStaticPaths } from "astro";
+import type { GetStaticPaths, ImageMetadata } from "astro";
+import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export const getStaticPaths = (async () => {
@@ -13,11 +14,26 @@ export const getStaticPaths = (async () => {
 
 const { project } = Astro.props as { project: CollectionEntry<"projects"> };
 const { Content } = await render(project);
+
+const images = import.meta.glob<{ default: ImageMetadata }>("/src/images/*.{jpeg,jpg,png,gif}");
+const imagePath = `/src${project.data.imageUrl}`;
 ---
 
 <BaseLayout title={project.data.title}>
     <h1>{project.data.title}</h1>
     <div class="project-content">
+      {project.data.imageUrl && (
+              <div class="project-image">
+                  <Image
+                          src={images[imagePath]()}
+                          alt={project.data.title}
+                          width={256}
+                          height={256}
+                          decoding="async"
+                          loading="eager"
+                  />
+              </div>
+      )}
         <Content/>
     </div>
 </BaseLayout>
