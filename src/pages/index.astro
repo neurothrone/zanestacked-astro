@@ -1,8 +1,10 @@
 ---
+import Counter from "../components/Counter";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/global.css"
 ---
 
 <BaseLayout title="ZaneStacked">
     <h1>Welcome to ZaneStacked</h1>
+    <Counter client:load/>
 </BaseLayout>
