@@ -1,0 +1,17 @@
+---
+type Props = {
+  links: { href: string, text: string }[]
+};
+
+const { links }: Props = Astro.props;
+---
+
+<nav class="container">
+    <ul>
+      {links.map((link) => (
+              <li>
+                  <a href={link.href}>{link.text}</a>
+              </li>
+      ))}
+    </ul>
+</nav>
