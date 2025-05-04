@@ -8,15 +8,33 @@ const sortByDate = (a: CollectionEntry<"projects">, b: CollectionEntry<"projects
 };
 ---
 
-<BaseLayout>
-    <h1>Projects</h1>
-    <ul class="project-list">
-      {projects.sort(sortByDate).map((project: CollectionEntry<"projects">) => {
-          <li>
-              <div class="title">{project.data.title}</div>
-              <div class="created-date">{project.data.createdDate.toDateString()}</div>
-              <a href={`/projects/${project.id.replace(".md", "")}`}>Read more</a>
-          </li>
-      })}
-    </ul>
+<BaseLayout title="Projects | ZaneStacked">
+    <div class="py-8">
+        <div class="flex items-center gap-3 mb-8">
+            <div class="h-8 w-1 bg-primary-500 rounded-full"></div>
+            <h1 class="m-0">Projects</h1>
+        </div>
+
+        <p class="text-gray-300 mb-8">Explore our collection of innovative projects. Each one represents a unique blend of creativity and technical expertise.</p>
+
+        <ul class="project-list">
+          {projects.sort(sortByDate).map((project: CollectionEntry<"projects">) => (
+              <li class="group">
+                  <div class="flex justify-between items-start">
+                      <div class="title group-hover:text-primary-200 transition-colors duration-200">{project.data.title}</div>
+                      <div class="bg-dark-700 text-primary-300 text-xs px-2 py-1 rounded-full">
+                          {new Date(project.data.createdDate).getFullYear()}
+                      </div>
+                  </div>
+                  <div class="created-date">{project.data.createdDate.toDateString()}</div>
+                  <a href={`/projects/${project.id.replace(".md", "")}`} class="inline-flex items-center gap-1">
+                      Read more
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                      </svg>
+                  </a>
+              </li>
+          ))}
+        </ul>
+    </div>
 </BaseLayout>

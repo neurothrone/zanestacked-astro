@@ -19,21 +19,44 @@ const images = import.meta.glob<{ default: ImageMetadata }>("/src/images/*.{jpeg
 const imagePath = `/src${project.data.imageUrl}`;
 ---
 
-<BaseLayout title={project.data.title}>
-    <h1>{project.data.title}</h1>
-    <div class="project-content">
-      {project.data.imageUrl && (
-              <div class="project-image">
-                  <Image
-                          src={images[imagePath]()}
-                          alt={project.data.title}
-                          width={256}
-                          height={256}
-                          decoding="async"
-                          loading="eager"
-                  />
-              </div>
-      )}
-        <Content/>
+<BaseLayout title={`${project.data.title} | ZaneStacked`}>
+    <div class="py-8">
+        <a href="/projects" class="inline-flex items-center gap-1 mb-6 text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Projects
+        </a>
+
+        <h1>{project.data.title}</h1>
+
+        <div class="flex items-center gap-3 mb-6">
+            <div class="bg-primary-800 text-primary-200 text-sm px-3 py-1 rounded-full">
+                {project.data.createdDate.toDateString()}
+            </div>
+        </div>
+
+        <div class="project-content">
+            {project.data.imageUrl && (
+                <div class="project-image">
+                    <div class="relative">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-primary-600 to-primary-800 rounded-lg blur opacity-30"></div>
+                        <Image
+                            src={images[imagePath]()}
+                            alt={project.data.title}
+                            width={400}
+                            height={400}
+                            class="relative"
+                            decoding="async"
+                            loading="eager"
+                        />
+                    </div>
+                </div>
+            )}
+
+            <div class="prose prose-invert prose-headings:text-primary-300 prose-a:text-primary-400 max-w-none">
+                <Content/>
+            </div>
+        </div>
     </div>
 </BaseLayout>
